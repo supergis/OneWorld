@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>SuperMap Online Service Platform Sample - 地图浏览</title>
+	<script type="text/javascript" src="http://services.supermapcloud.com/iserver/api?key=aXtbCHyF5FSZn6TeeEywSatgs5GIaP4VVwIAOjFQXHM%3D&v=1.1"></script>
+
+    <script type="text/javascript">
+        var map = null;
+		var layer = null;
+        //初始化地图
+     function onPageLoad(){
+		layer = new SuperMap.Layer.CloudLayer();
+			featuresLayer = new SuperMap.Layer.Vector();
+			 map = new SuperMap.Map("mapDiv", { controls: [
+                      new SuperMap.Control.PanZoomBar(),
+                      new SuperMap.Control.Navigation({
+                          dragPanOptions: {
+                              enableKinetic: true
+                          }
+                      })], allOverlays: true
+            });
+			map.addLayer(layer);
+			map.setCenter(new SuperMap.LonLat(12958399.4681885, 4852082.44060595),11);
+	 }
+    </script>
+</head>
+<body onload="onPageLoad()">
+    <!--地图控件-->
+    <div id="main" style="position: absolute; width: 900px; height: 600px; top: 10px;
+        left: 10px; border: solid 1px gray">
+        <!--地图控件-->
+        <div id="mapDiv" style="position: absolute; width: 880px; height: 580px; top: 10px;
+            left: 10px;">
+        </div>
+       
+        <div id="simpleScaleBarContainer" style="position: absolute; width: 200px; height: 50px;
+            bottom: 30px; left: 30px;">
+        </div>
+        <div id="divMousePosition" style="position: absolute; bottom: 30px; right: 30px;
+            z-index: 9999">
+        </div>
+    </div>
+    <form>
+    </form>
+</body>
+</html>

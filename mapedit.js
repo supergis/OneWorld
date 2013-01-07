@@ -4,6 +4,8 @@ var featuresLayer = null;
 var layer = null;
 //初始化地图
 function onPageLoad() {
+    //resize();
+
     layer = new SuperMap.Layer.CloudLayer();
     markerLayer = new SuperMap.Layer.Markers("maker");
     featuresLayer = new SuperMap.Layer.Vector();
@@ -13,6 +15,7 @@ function onPageLoad() {
     drawPoint.events.on({ "featureadded": drawCompleted });
     drawPolygon = new SuperMap.Control.DrawFeature(featuresLayer, SuperMap.Handler.Polygon, { multi: true });
     drawPolygon.events.on({ "featureadded": drawCompleted });
+
     map = new SuperMap.Map("mapDiv", { controls: [
                       new SuperMap.Control.PanZoomBar(),
                       new SuperMap.Control.Navigation({
@@ -20,11 +23,27 @@ function onPageLoad() {
                               enableKinetic: true
                           }
                       }), drawLine, drawPoint, drawPolygon], allOverlays: true
-    });
+                  });
+    
     map.addLayer(layer);
     map.addLayer(featuresLayer);
     map.addLayer(markerLayer);
     map.setCenter(new SuperMap.LonLat(12958399.4681885, 4852082.44060595), 11);
+}
+
+function resize() {
+    alert(screen.width()+screen.height());
+}
+
+function fullsizemap() {
+    alert("满窗显示");
+    document.getElementById('mapDiv').style.height = "600px";
+    document.getElementById('mapDiv').style.width = "1024px";
+}
+
+function fullscreen() {
+    alert("Full Screen");
+    //window.open(document.location, 'big', 'fullscreen=yes');
 }
 
 function drawLines() {

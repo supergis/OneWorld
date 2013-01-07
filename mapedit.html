@@ -6,33 +6,41 @@
 	<script type="text/javascript" src="http://services.supermapcloud.com/iserver/api?key=aXtbCHyF5FSZn6TeeEywSatgs5GIaP4VVwIAOjFQXHM%3D&v=1.1"></script>
     <script type="text/javascript" src="http://www.supermapcloud.com/online/samples/actions/js_color_picker_v2.js"></script>
     <script type="text/javascript" src="mapedit.js">     </script>
+    <script type="text/javascript">
 
+    </script>
 </head>
 <body onload="onPageLoad()">
-        <div id="DivTitle" style="position: absolute; height:20px;width:800px; top: 0px;left: 0px;">
-        MapEdit for Everyone.
+        <div id="DivTitle" style="position: absolute; height:20px;width:400px; top: 0px;left: 0px;">
+        开放地图编辑器.
+        <form><input type="button" name="FullScreen" style="position: absolute; height:20px;width:80px; top: 0px;left: 400px;" 
+            value="全屏显示" onclick="fullsizemap()">
+        </form>
         </div>
 
     <!--地图控件-->
-    <div id="main" style="border-style: solid; border-color: inherit; border-width: 0px; position: absolute; height:506px; width:531px; top: 25px;
+    <div id="main" style="border-style: solid; border-color: inherit; border-width: 0px; position: absolute; height:550px; width:771px; top: 25px;
         left: 0px; ">
 
         <!--地图控件-->
         <div id="mapDiv" style="position: absolute; height:600px;width:800px; top: 0px;
         left: 0px;">
+        <div id="divViewBounds" 
+                style="font-size: 12px; position: absolute; top: 484px; left: 98px; width: 169px; z-index: auto;">
+        </div>
         </div>
        
-        <div id="simpleScaleBarContainer" style="position: absolute; width: 200px; height: 50px;
-            bottom: 30px; left: 30px;">
+        <div id="simpleScaleBarContainer" style="position: absolute; width: 200px; height: 39px;z-index: 9999;
+            bottom: 57px; left: 576px;" title="Scale">
         </div>
 
         <div id="divMousePosition" style="position: absolute; bottom: 30px; right: 30px;
             z-index: 9999">
         </div>
 
-        <div id="maplegend" style="position: absolute; bottom: 10px; left: 10px; height: 230px;
+        <div id="maplegend" style="position: absolute; bottom: 10px; left: 400px; height: 230px;
             width: 300px; border: 1px solid #ccc; overflow: auto; overflow-x: hidden; display: none;
-            z-index: 9999">
+            z-index: 9999; background-color: #00FF00;">
             <table>
                 <tr>
                     <td align="center">
@@ -48,7 +56,7 @@
         </div>
     </div>
 
-    <div id="tool" style="position: absolute; left:20px; top:200px; width: 72px; z-index: 100;
+    <div id="tool" style="position: absolute; left:20px; top:200px; width: 39px; z-index: 100;
         padding-bottom: 5px;">
         <img src="http://www.supermapcloud.com/online/images/drawPoint.png" title="绘制点" onmouseover="this.src = 'http://www.supermapcloud.com/online/images/drawPoint_on.png'"
             onmouseout="this.src = 'http://www.supermapcloud.com/online/images/drawPoint.png'" onclick="drawPoints()"></img>
@@ -60,8 +68,13 @@
             onmouseout="this.src = 'http://www.supermapcloud.com/online/images/ZoomIn.png'" onclick="zoomIn()" />
         <img src="http://www.supermapcloud.com/online/images/ZoomOut.png" title="缩小" onmouseover="this.src = 'http://www.supermapcloud.com/online/images/zoomout_on.png'"
             onmouseout="this.src = 'http://www.supermapcloud.com/online/images/ZoomOut.png'" onclick="zoomOut()" />
-        <img src="http://www.supermapcloud.com/online/images/eraser.png" title="清除矢量要素" onmouseover="this.src = 'http://www.supermapcloud.com/online/images/eraser_on.png'"
+        <img src="http://www.supermapcloud.com/online/images/eraser.png" title="清除要素" onmouseover="this.src = 'http://www.supermapcloud.com/online/images/eraser_on.png'"
             onmouseout="this.src = 'http://www.supermapcloud.com/online/images/eraser.png'" onclick="clearAll()"></img>
+        <img src="http://www.supermapcloud.com/online/images/eraser.png" title="显示图例" onmouseover="this.src = 'http://www.supermapcloud.com/online/images/eraser_on.png'"
+            onmouseout="this.src = 'http://www.supermapcloud.com/online/images/eraser.png'" onclick="showLegend()"></img>
+        <img src="http://www.supermapcloud.com/online/images/eraser.png" title="地图范围" onmouseover="this.src = 'http://www.supermapcloud.com/online/images/eraser_on.png'"
+            onmouseout="this.src = 'http://www.supermapcloud.com/online/images/eraser.png'" onclick="getMapViewBounds()"></img>
+            
     </div>
 
     <form>
@@ -118,10 +131,6 @@
             </table>
             <div id="picker">
             </div>
-        </div>
-        <input type="button" value="获取当前地图可视范围" onclick="getMapViewBounds()" />
-        <input type="button" value="显示/隐藏图例" onclick="showLegend()" />
-        <div id="divViewBounds" style="font-size: 12px">
         </div>
         <!--<div style="font-size: 12px">
             调整窗口大小：<br />
